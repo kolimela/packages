@@ -1,0 +1,24 @@
+---
+# Testing the Tower by installing sample client&server packages
+
+- hosts: all
+  user: root
+  become: true
+  gather_facts: no
+  connection: ssh
+
+  tasks:
+  - name: Time stap for when playbook starts
+    command: /bin/date
+    register: timestap_start
+  - debug: var=timestap_start
+
+
+  - name: Install client software - telnet
+    apt: pkg=telnet state=latest
+
+  - name : Time stap for when playbook ends
+    command: /bin/date
+    register: timestap_end
+  - debug: var=timestap_end
+
